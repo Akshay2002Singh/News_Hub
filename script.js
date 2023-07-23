@@ -1,6 +1,5 @@
 window.onload = () => {
     news();
-    document.getElementById("loader").style.display = "none";
     // for testing 
     // fetch('/demo_data.json').then((response) => response.json()).then(data => {
     //     // console.log(data);
@@ -12,7 +11,7 @@ window.onload = () => {
     //         document.getElementById("container").innerHTML += `
     //                 <div id="card" onclick="toottip(${i})">  
     //                   <img src="${curr.urlToImage}" alt="News image">
-                      
+
     //                  <h3 id="title">${curr.title}</h3>
     //                  <p id="description"> ${curr.description ? curr.description : ""}
     //                  </p>
@@ -26,10 +25,10 @@ window.onload = () => {
 var cur_articles;
 
 // Take user query 
-function submit_form(){
+function submit_form() {
     let q = document.getElementById("search_text").value;
     q = q.trim();
-    if(q.length == 0) return
+    if (q.length == 0) return
     // console.log(q);
     document.getElementById("container").innerHTML = '';
     let url = `https://newsapi.org/v2/everything?q=${q}&language=en&sortBy=publishedAt&apiKey=c897f5fb6033410aa1144ceb23d6b24e`
@@ -56,8 +55,16 @@ function news(news_type) {
 }
 
 // function to fetch and show news 
-function fetch_news(url){
-    fetch(url).then((response) => response.json()).then(data => {
+function fetch_news(url) {
+    // fetch data using backend
+    fetch("https://apiinvoker.pythonanywhere.com/api/", {
+        method: "POST",
+        body: JSON.stringify({
+            'api': url
+        })
+    })
+        .then((response) => response.json())
+        .then((data) =>  {
         // console.log(data);
         cur_articles = data.articles;
         for (let i = 0; i < data.articles.length; i++) {
@@ -78,6 +85,7 @@ function fetch_news(url){
         document.getElementById("loader").style.display = "none";
     });
 }
+
 // function to show pop up or toot tip
 function toottip(i) {
     // i is index of current article 
