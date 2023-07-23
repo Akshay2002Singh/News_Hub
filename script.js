@@ -1,25 +1,26 @@
 window.onload = () => {
-    // news();
+    news();
     document.getElementById("loader").style.display = "none";
-    fetch('/demo_data.json').then((response) => response.json()).then(data => {
-        // console.log(data);
-        cur_articles = data.articles;
-        for (let i = 0; i < data.articles.length; i++) {
-            let curr = data.articles[i];
-            // console.log(curr)
-            let date = (curr.publishedAt.split("T")[0]).split('-');
-            document.getElementById("container").innerHTML += `
-                    <div id="card" onclick="toottip(${i})">  
-                      <img src="${curr.urlToImage}" alt="News image">
+    // for testing 
+    // fetch('/demo_data.json').then((response) => response.json()).then(data => {
+    //     // console.log(data);
+    //     cur_articles = data.articles;
+    //     for (let i = 0; i < data.articles.length; i++) {
+    //         let curr = data.articles[i];
+    //         // console.log(curr)
+    //         let date = (curr.publishedAt.split("T")[0]).split('-');
+    //         document.getElementById("container").innerHTML += `
+    //                 <div id="card" onclick="toottip(${i})">  
+    //                   <img src="${curr.urlToImage}" alt="News image">
                       
-                     <h3 id="title">${curr.title}</h3>
-                     <p id="description"> ${curr.description ? curr.description : ""}
-                     </p>
-                     <span id="published_time">Published At : ${date[2]}/${date[1]}/${date[0]} </span>
-                   </div> `;
-            // console.log(data.articles[i].urlToImage);
-        }
-    });
+    //                  <h3 id="title">${curr.title}</h3>
+    //                  <p id="description"> ${curr.description ? curr.description : ""}
+    //                  </p>
+    //                  <span id="published_time">Published At : ${date[2]}/${date[1]}/${date[0]} </span>
+    //                </div> `;
+    //         // console.log(data.articles[i].urlToImage);
+    //     }
+    // });
 }
 
 var cur_articles;
